@@ -1,0 +1,34 @@
+table td.link-action > .subaction-frame .ml-edit-group{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 14px;
+	vertical-align: middle;
+	
+	padding: 0 10px 0 5px;
+	margin: 0 10px;
+	border-left: 1px solid #c1c1c1;
+	border-right: 1px solid #c1c1c1;
+}
+
+table td.link-action > .subaction-frame .ml-edit-group .ml-icon{
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 20px;
+	color: #bfbfbf;
+	margin-right: 5px;
+}
+table td.link-action > .subaction-frame .ml-edit-group a > .flag{
+	display: inline-block;
+	height: 18px;
+	width: 30px;
+	vertical-align: middle;
+
+	border-radius: 0px;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+
+
+}
