@@ -210,8 +210,8 @@ pb_hook_add_action('pb_page_deleted', '_pb_ml_hook_for_page_deleted');
 
 
 function _pb_ml_hook_for_for_page_rewrite_handler(){
-	if(!isset($pbpage)) return;
 	global $pbpage, $pbpage_meta_map;	
+	if(!isset($pbpage)) return;
 
 	$original_page_id_ = isset($pbpage_meta_map['ml_original_page_id']) ? $pbpage_meta_map['ml_original_page_id'] : -1;
 	$original_page_data_ = pb_page($original_page_id_);
