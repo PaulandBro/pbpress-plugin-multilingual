@@ -215,11 +215,12 @@ function _pb_ml_hook_for_for_post_rewrite_handler(){
 	}
 
 	$localed_post_data_ = pb_post_list(array('ml_original_post_id' => $pbpost['id'], 'ml_locale' => $current_locale_));
+
 	if(count($localed_post_data_) <= 0) return;
 
 	$pbpost = $localed_post_data_[0];
 	$pbpost_meta_map = pb_post_meta_map($pbpost['id']);
 }
-pb_hook_add_action("pb_started", "_pb_ml_hook_for_for_post_rewrite_handler");
+pb_hook_add_action("pb_post_setup", "_pb_ml_hook_for_for_post_rewrite_handler");
 
 ?>
