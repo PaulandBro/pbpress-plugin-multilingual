@@ -61,7 +61,22 @@ function _pb_ml_hook_for_post_edit_form_after($post_data_){
 
 	<?php 
 }
-pb_hook_add_action("pb_post_edit_form_control_panel_after", '_pb_ml_hook_for_post_edit_form_after');
+
+$post_easytable_ = pb_easytable("pb-admin-post-table");
+$post_easytable_->insert_column(1, "ml_locale", array(
+	'name' => '언어',
+	'class' => 'col-1 text-center',
+	'render' => function($table_, $item_, $page_index_){
+
+		$locale_ = pb_post_meta_value($item_['id'], "ml_locale");
+		$country_code_ = strtolower(substr($locale_, -2));
+		?>
+		
+		<div style="background-image: url('<?=PB_ML_URL?>img/flags/<?=$country_code_?>.png')" class="flag"></div>
+
+		<?php
+	}
+));
 
 pb_hook_add_action('pb_post_inserted', "_pb_ml_hook_for_post_update_hook");
 pb_hook_add_action('pb_post_updated', "_pb_ml_hook_for_post_update_hook");
@@ -71,18 +86,5 @@ function _pb_ml_hook_for_post_update_hook($post_id_){
 	$ml_locale_ = isset($post_data_['ml_locale']) ? $post_data_['ml_locale'] : $pb_config->default_locale();
 	pb_post_meta_update($post_id_, "ml_locale", $ml_locale_);
 }
-
-pb_hook_add_action("pb_manage_post_listtable_post_title_after", function($item_){
-
-	$ml_locale_ = pb_post_meta_value($item_['id'], "ml_locale");
-
-	if(strlen($ml_locale_)){
-		$country_code_ = strtolower(substr($ml_locale_, -2));
-	?>
-		<div style="background-image: url('<?=PB_ML_URL?>img/flags/<?=$country_code_?>.png')" class="ml-flag"></div>
-	<?php }
-});
-
-
 
 ?>
