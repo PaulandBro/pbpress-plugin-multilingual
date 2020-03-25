@@ -34,3 +34,12 @@ table td.link-action > .subaction-frame .ml-edit-group a > .flag{
 
 
 }
+
+
+.bootstrap-select .dropdown-menu li a span.text .flag,
+#pb-post-edit-form .bootstrap-select .dropdown-toggle .filter-option-inner-inner .flag{
+	display: inline-block;
+	height: 16px;
+	width: auto;
+	vertical-align: top;
+}

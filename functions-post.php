@@ -18,7 +18,7 @@ function _pb_ml_hook_for_pb_post_statement($statement_, $conditions_ = array()){
 
 				SELECT posts_meta.post_id
 				FROM   posts_meta
-				WHERE  posts_meta.meta_name = '".PB_ML_META_LOCALE_NAME."'
+				WHERE  posts_meta.meta_name = 'ml_locale'
 				AND    posts_meta.meta_value = '".pb_database_escape_string($conditions_['ml_locale'])."'
 		
 		)");
@@ -29,11 +29,12 @@ function _pb_ml_hook_for_pb_post_statement($statement_, $conditions_ = array()){
 
 pb_hook_add_filter('pb_post_statement', '_pb_ml_hook_for_pb_post_statement');
 
-
 function _pb_ml_hook_for_post_edit_form_after($post_data_){
-
-	global $pb_config, $pbpost_meta_map;
+	global $pb_config,$pbpost_meta_map;
 	$ml_locale_ = isset($pbpost_meta_map['ml_locale']) ? $pbpost_meta_map['ml_locale'] : $pb_config->default_locale();
+
+	$default_locale_ = $pb_config->default_locale();
+	$default_country_code_ = strtolower(substr($default_locale_, -2));
 	?>
 	<div class="panel panel-default" id="pb-post-edit-form-ext-link-panel">
 		<div class="panel-heading" role="tab">
@@ -44,12 +45,15 @@ function _pb_ml_hook_for_post_edit_form_after($post_data_){
 		<div id="pb-post-edit-form-ext-link-panel-body" class="panel-collapse collapse in" role="tabpanel">
 			<div class="panel-body">
 				<div class="form-group">
-					<select class="form-control" name="ml_locale" required data-error="언어를 선택하세요">
+					<select class="selectpicker" name="ml_locale" required data-error="언어를 선택하세요">
+						<option data-content="<img class='flag' src='<?=PB_ML_URL?>img/flags/<?=$default_country_code_?>.png'> <?=$default_locale_?>"><?=$default_locale_?></option>
 					<?php
-					$locale_list_ = pb_locale_text_map();
-					foreach ($locale_list_ as $locale_key_ => $locale_value_) {
+
+						$locale_list_ = pb_ml_available_locales();
+					foreach ($locale_list_ as $locale_){
+						$country_code_ = strtolower(substr($locale_, -2));
 					?>
-						<option value="<?=$locale_key_?>" <?=pb_selected($ml_locale_, $locale_key_)?>><?=$locale_value_?></option>
+					  <option data-content="<img class='flag' src='<?=PB_ML_URL?>img/flags/<?=$country_code_?>.png'> <?=$locale_?>" <?=pb_selected($locale_, $ml_locale_)?>><?=$locale_?></option>
 					<?php
 					}
 					?>
@@ -61,6 +65,7 @@ function _pb_ml_hook_for_post_edit_form_after($post_data_){
 
 	<?php 
 }
+pb_hook_add_action("pb_post_edit_form_control_panel_after", '_pb_ml_hook_for_post_edit_form_after');
 
 $post_easytable_ = pb_easytable("pb-admin-post-table");
 $post_easytable_->insert_column(1, "ml_locale", array(
