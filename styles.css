@@ -19,10 +19,12 @@ table td.link-action > .subaction-frame .ml-edit-group .ml-icon{
 	color: #bfbfbf;
 	margin-right: 5px;
 }
+
+table td.ml_locale > .flag,
 table td.link-action > .subaction-frame .ml-edit-group a > .flag{
 	display: inline-block;
-	height: 18px;
-	width: 30px;
+	height: 16px;
+	width: 28px;
 	vertical-align: middle;
 
 	border-radius: 0px;
