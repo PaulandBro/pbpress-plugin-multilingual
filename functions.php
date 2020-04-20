@@ -32,4 +32,6 @@ if(isset($posts_do)){
 	include PB_ML_PATH."functions-post.php";	
 }
 
+include PB_ML_PATH."functions-gcode.php";
+
 ?>

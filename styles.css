@@ -31,10 +31,7 @@ table td.link-action > .subaction-frame .ml-edit-group a > .flag{
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: center;
-
-
 }
-
 
 .bootstrap-select .dropdown-menu li a span.text .flag,
 #pb-post-edit-form .bootstrap-select .dropdown-toggle .filter-option-inner-inner .flag{
@@ -42,4 +39,10 @@ table td.link-action > .subaction-frame .ml-edit-group a > .flag{
 	height: 16px;
 	width: auto;
 	vertical-align: top;
+}
+.page-manage-gcode .pb-locale-form-navbar .nav-tabs > li > a .flag{
+	position: relative;
+    display: inline-block;
+    height: 20px;
+    margin-right: 5px;
 }
