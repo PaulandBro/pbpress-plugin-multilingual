@@ -27,18 +27,8 @@ $gcode_locales_do = pbdb_data_object("gcode_locales", array(
 global $gcode_dtl_locales_do;
 $gcode_dtl_locales_do = pbdb_data_object("gcode_dtl_locales", array(
 	'locale'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 10, "pk" => true, "updatable" => true, "comment" => "언어코드"),
-	'code_id'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 20, "pk" => true, "updatable" => true, "fk" => array(
-		'table' => 'gcode_dtl',
-		'column' => "code_id",
-		'delete' => PBDB_DO::FK_CASCADE,
-		'update' => PBDB_DO::FK_CASCADE,
-	), "comment" => "코드ID"),
-	'code_did'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 20, "pk" => true, "updatable" => true, "fk" => array(
-		'table' => 'gcode_dtl',
-		'column' => "code_did",
-		'delete' => PBDB_DO::FK_CASCADE,
-		'update' => PBDB_DO::FK_CASCADE,
-	), "comment" => "상세코드ID"),
+	'code_id'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 20, "pk" => true, "updatable" => true, "comment" => "코드ID"),
+	'code_did'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 20, "pk" => true, "updatable" => true, "comment" => "상세코드ID"),
 	'code_dnm'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 50, "comment" => "상세코드명"),
 	
 	'col1'		 => array("type" => PBDB_DO::TYPE_VARCHAR, "length" => 100, "comment" => "COL1"),
@@ -49,6 +39,16 @@ $gcode_dtl_locales_do = pbdb_data_object("gcode_dtl_locales", array(
 	'reg_date'	 => array("type" => PBDB_DO::TYPE_DATETIME, "comment" => "등록일자"),
 	'mod_date'	 => array("type" => PBDB_DO::TYPE_DATETIME, "comment" => "수정일자"),
 ),"공통코드 - 상세 - 다국어화");
+
+$gcode_dtl_locales_do->add_custom_fk(array(
+	'table' => "gcode_dtl", 
+	'from' => "code_id,code_did", 
+	'to' => "code_id,code_did", 
+	'update' => PBDB_DO::FK_CASCADE,
+	'delete' => PBDB_DO::FK_CASCADE,
+));
+
+if(!$gcode_locales_do->is_exists() || !$gcode_dtl_locales_do->is_exists()) return;
 
 function pb_gcode_locales_map($code_id_){
 	$results_ = array();
