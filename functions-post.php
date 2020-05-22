@@ -87,7 +87,8 @@ pb_hook_add_action('pb_post_inserted', "_pb_ml_hook_for_post_update_hook");
 pb_hook_add_action('pb_post_updated', "_pb_ml_hook_for_post_update_hook");
 function _pb_ml_hook_for_post_update_hook($post_id_){
 	global $pb_config;
-	$post_data_ = $_POST['post_data'];
+	$post_data_ = _POST('post_data');
+	if(!isset($post_data_)) return;
 	$ml_locale_ = isset($post_data_['ml_locale']) ? $post_data_['ml_locale'] : $pb_config->default_locale();
 	pb_post_meta_update($post_id_, "ml_locale", $ml_locale_);
 }
